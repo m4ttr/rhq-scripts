@@ -1,8 +1,6 @@
 var term = args[0];
 
-deleteDriftByKeyword(term);
-
-function deleteDriftByKeyword(searchTerm) {
+function deleteDriftByKeyword(searchTerm, callback) {
     var criteria = DriftDefinitionCriteria();
     criteria.addFilterName(searchTerm);
    	var res = DriftManager.findDriftDefinitionsByCriteria(criteria);
@@ -10,18 +8,22 @@ function deleteDriftByKeyword(searchTerm) {
     if (res.size() > 1) {
         resArray = res.toArray()
             for (id in resArray) {
-                deleteDrift(resArray[id])
+                callback(resArray[id])
             }
     }
     else if (res.isEmpty() || res == 'null') {
-        deleteDrift(id)
-    }
-    else {
-        println("No results found for " + searchTerm)
+        println('No drift definitions match' + searchTerm)
     }
 }
 
-function deleteDrift(driftDef) {
-    driftObj = driftDef
-    DriftManager.deleteDriftDefinition(EntityContext.forResource(driftObj.resource.id), driftObj.name)
+var deleteDrit = function(driftDef) {
+    try {
+        DriftManager.deleteDriftDefinition(EntityContext.forResource(driftDef.resource.id), driftDef.name);
+    }
+    catch (e if javax.ejb.EJBException instanceof java.lang.IllegalArgumentException) {
+        println('driftDef not found!');
+
+    }
 }
+
+deleteDriftByKeyword(term, deleteDrift);
