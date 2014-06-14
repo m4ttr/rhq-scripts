@@ -5,7 +5,7 @@ function deleteDriftByKeyword(searchTerm, callback) {
     criteria.addFilterName(searchTerm);
    	var res = DriftManager.findDriftDefinitionsByCriteria(criteria);
 
-    if (res.size() > 1) {
+    if (res.size() > 0) {
         resArray = res.toArray()
             for (id in resArray) {
                 callback(resArray[id])

@@ -14,6 +14,7 @@ var app_res = ResourceManager.getResource(alert.alertDefinition.resource.id)
 var anc = app_res.getAncestry()
 
 var app_name = app.name;
+var app_id = app.id;
 var app_version = app.backingContent.packageVersion.displayVersion;
 
 var jvm_name = (/[\s.\s](\w+?)\_/.exec(anc)[1])
@@ -28,6 +29,7 @@ email_content = email_content.replace('jvm_name', jvm_name);
 email_content = email_content.replace('host_name', host_name);
 email_content = email_content.replace('app_name', app_name);
 email_content = email_content.replace('app_version', app_version);
+email_content = email_content.replace('res_num', app_id);
 
 var app_name_str = String(jvm_name);
 
