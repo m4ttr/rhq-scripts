@@ -25,7 +25,7 @@ Create an alert definition for drift, regex (.*?_deployDetect$). CLI Script as n
 
 > The Implemntation-Version number will be read from JON and an email notification will be sent on behalf of emailDeploy.js with app name and version number.
 
-###Create DriftDefinitions### 
+###Create DriftDefinitions###
 
 ```
 rhq-remoting-cli/bin/rhq-cli.sh -f createAppDriftforDeploy.js <group>
